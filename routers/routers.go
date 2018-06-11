@@ -7,6 +7,7 @@ import (
 	"os"
 	"log"
 	"io"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func GetHandler(c *gin.Context){
@@ -60,5 +61,36 @@ func UploadFile(c *gin.Context){
 	if err != nil{
 		log.Fatal(err)
 	}
-	c.String(http.StatusCreated, "upload successful")
+	c.String(http.StatusOK, "upload successful")
 }
+
+func TestSql(c *gin.Context){
+	//db, err := sql.Open("mysql", "root:tcp@(127.0.0.1:3306)/test?parseTime=true")
+	//c.String(http.StatusOK,"test sql connect")
+}
+
+
+
+type Person struct{
+	Name string `json:"name"`
+	Address string `json:"address"`
+	Common []common `json:"common"`
+}
+
+type common struct{
+	Age int `json:"age"`
+	Sex string `json:"sex"`
+}
+
+func Binding(c *gin.Context){
+	var person Person
+	if c.ShouldBindJSON(&person) == nil{
+		c.JSON(200,gin.H{"states":"you are login",
+			"name":person.Name,
+			"address":person.Address,
+			"commom_age":person.Common,
+		})
+	}
+	c.String(400,"name:",person.Name+person.Address)
+}
+

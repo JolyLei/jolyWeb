@@ -8,7 +8,7 @@ import(
 )
 
 
-func main(){
+func main1(){
 	gin.SetMode(gin.DebugMode)	//全局设置为开发环境
 	router := gin.Default()		//获得路由实例
 
@@ -19,7 +19,9 @@ func main(){
 	router.POST("/simple/server/post", routers.PostHandler)
 	router.PUT("/simple/server/put", routers.PutHandler)
 	router.DELETE("/simple/server/delete", routers.DeleteHandler)
-	router.POST("/simple/server/upload",routers.UploadFile)
+	router.POST("/simple/server/upload", routers.UploadFile)
+	router.GET("simple/server/testsql", routers.TestSql)
+	router.POST("simple/server/bind",routers.Binding)
 
 	//监听端口
 	http.ListenAndServe(":8099",router)
@@ -30,3 +32,6 @@ func main(){
 func Middleware(c *gin.Context){
 	fmt.Println("this is a middleware!")
 }
+
+
+
