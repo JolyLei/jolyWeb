@@ -57,15 +57,7 @@ func HttpPostForm(){
 	fmt.Println(string(body))
 }
 
-package main
 
-import (
-"fmt"
-"io/ioutil"
-"net"
-"net/http"
-"time"
-)
 
 func Gouzao() {
 	var netTransport = &http.Transport{
